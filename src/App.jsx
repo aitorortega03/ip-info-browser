@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconContext } from "react-icons";
 import { FaComputer } from "react-icons/fa6";
 
@@ -7,19 +7,21 @@ const App = () => {
   const [ip, setIp] = useState("");
   const [ipInfo, setIpInfo] = useState(null);
   const [loading, setLoading] = useState(false);
-  //TODO: view why need to click 2 times to do the request
-  //TODO: refactor all to components
+
+  useEffect(() => {
+    if (ip) {
+      axios
+      .get(`http://ip-api.com/json/${ip}`)
+      .then(response => setIpInfo(response.data))
+      .catch(err => console.log(err))
+      .finally(setLoading(false));
+    }
+  },[ip]);
 
   const handleSubmit = (event) => {
-    let ipInputValue = event.target[0].value;
-    setIp(ipInputValue);
-    setLoading(true);
     event.preventDefault();
-    axios.get(`http://ip-api.com/json/${ip}`)
-      .then(response => response.data)
-      .then(ipData => setIpInfo(ipData))
-      .catch(err => console.log(err))
-      .finally(setLoading(false))
+    let ipInputValue = event.target[0].value;
+    ipInputValue ? setIp(ipInputValue) : setIpInfo(null)
   };
 
   return (
