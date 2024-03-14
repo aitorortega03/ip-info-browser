@@ -10,8 +10,8 @@ const App = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true)
     if (ip) {
+      setLoading(true)
       axios
       .get(`http://ip-api.com/json/${ip}?fields=query,continent,continentCode,country,countryCode,region,regionName,city,lat,lon,timezone,offset,currency,isp,org,mobile,proxy`)
       .then(response => setIpInfo(response.data))
