@@ -1,6 +1,5 @@
-import axios from "axios";
 import { describe, it, expect, afterEach } from 'vitest';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import App from './App';
 
 afterEach(() => cleanup())
