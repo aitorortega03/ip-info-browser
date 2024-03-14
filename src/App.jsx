@@ -9,11 +9,12 @@ const App = () => {
   const [ipInfo, setIpInfo] = useState(null);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     if (ip) {
       setLoading(true)
       axios
-      .get(`http://ip-api.com/json/${ip}?fields=query,continent,continentCode,country,countryCode,region,regionName,city,lat,lon,timezone,offset,currency,isp,org,mobile,proxy`)
+      .get(`https://api.ipgeolocation.io/ipgeo?apiKey=${import.meta.env.VITE_API_KEY}&ip=${ip}`)
       .then(response => setIpInfo(response.data))
       .catch(err => console.log(err))
       .finally(() => setLoading(false));
